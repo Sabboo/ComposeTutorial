@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 data class Message(val author: String, val body: String)
@@ -86,3 +87,9 @@ fun dummyConversation() = listOf(
     Message("Name 8", "This is message content with extra content to preview 8"),
     Message("Name 9", "This is message content with extra content to preview 9")
 )
+
+@Preview(showBackground = true)
+@Composable
+fun ConversationPreview() {
+    Conversation(dummyConversation())
+}

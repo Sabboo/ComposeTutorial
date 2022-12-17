@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun RowScreenSample() {
@@ -38,4 +39,10 @@ fun GreetingText(name: String) {
         style = MaterialTheme.typography.bodyLarge,
         color = Color.White
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun RowScreenSamplePreview() {
+    RowScreenSample()
 }
