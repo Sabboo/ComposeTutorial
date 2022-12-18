@@ -8,27 +8,46 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+
 
 @Composable
-fun DynamicListScreen() {
+fun DynamicListScreen(viewModel: DynamicListViewModel = viewModel()) {
     Surface(modifier = Modifier.fillMaxSize()) {
-        val namesListState = remember { mutableStateListOf<String>() }
-        val newNameTextFieldState = remember { mutableStateOf("") }
+        val namesListState = remember { viewModel.namesListState }
+        val newNameTextFieldState = viewModel.nameTextFieldFlow.collectAsState("")
 
+        DynamicListScreenContent(
+            namesList = namesListState,
+            newNameText = newNameTextFieldState.value,
+            onTextFieldValueChange = { newName -> viewModel.onTextFieldValueChange(newName) },
+            onAddNewNameButtonClick = { newName -> viewModel.onAddNewNameButtonClick(newName) }
+        )
+    }
+}
+
+@Composable
+fun DynamicListScreenContent(
+    namesList: List<String>,
+    newNameText: String,
+    onTextFieldValueChange: (newName: String) -> Unit,
+    onAddNewNameButtonClick: (newName: String) -> Unit
+) {
+    Surface(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceEvenly,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            for (name in namesListState) {
+            for (name in namesList) {
                 ListItem(text = name)
             }
 
             TextField(
-                value = newNameTextFieldState.value,
-                onValueChange = { newText -> newNameTextFieldState.value = newText })
+                value = newNameText,
+                onValueChange = { newName -> onTextFieldValueChange(newName) })
 
-            Button(onClick = { namesListState.add(newNameTextFieldState.value) }) {
+            Button(onClick = { onAddNewNameButtonClick(newNameText) }) {
                 Text("Add new name")
             }
         }
