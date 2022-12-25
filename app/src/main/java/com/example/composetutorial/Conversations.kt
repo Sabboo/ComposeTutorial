@@ -18,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
 
 data class Message(val author: String, val body: String)
 
@@ -33,8 +34,8 @@ fun Conversation(messages: List<Message>) {
 @Composable
 fun MessageCard(message: Message) {
     Row(Modifier.padding(8.dp)) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_baseline_1k_plus_24),
+        AsyncImage(
+            model = R.drawable.ic_baseline_1k_plus_24,
             contentDescription = stringResource(id = R.string.dsc_user_image),
             modifier = Modifier
                 .size(48.dp)
