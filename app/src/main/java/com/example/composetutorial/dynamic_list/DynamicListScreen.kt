@@ -1,4 +1,4 @@
-package com.example.composetutorial
+package com.example.composetutorial.dynamic_list
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
